@@ -108,7 +108,7 @@ console.log('orderHistory is empty', orderHistory.isEmpty());
 console.log('orderHistory peek', orderHistory.peek());
 
 
-const orderQueue = new OrderQueue(3);
+const orderQueue = new OrderQueue();
 console.log('orderQueue', orderQueue);
 console.log('orderQueue size', orderQueue.size());
 console.log('orderQueue is empty', orderQueue.isEmpty());
