@@ -70,9 +70,26 @@ class OrderQueue{
         return order;
     }
     
+    enqueue(order) {
+        this.add(order);
+    }
+
+    dequeue() {
+        return this.remove();
+    }
+
+    front() {
+        if (this.isEmpty()) {
+            throw new Error('Queue is empty');
+        }
+        return this.items[this.head];
+    } 
+
     size() {
         return this.count;
     }
+
+    
 
      isEmpty() {
         return this.count === 0;
@@ -90,8 +107,11 @@ console.log('orderHistory size', orderHistory.size());
 console.log('orderHistory is empty', orderHistory.isEmpty());
 console.log('orderHistory preview', orderHistory.preview());
 
+
 const orderQueue = new OrderQueue(3);
 console.log('orderQueue', orderQueue);
 console.log('orderQueue size', orderQueue.size());
 console.log('orderQueue is empty', orderQueue.isEmpty());
 console.log('orderQueue is full', orderQueue.isFull());
+console.log('orderQueue front', orderQueue.front());
+console.log('orderQueue dequeue', orderQueue.dequeue());
