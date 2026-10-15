@@ -42,7 +42,7 @@ class OrderQueue{
         this.count = 0;
     }
 
-    add(order) {
+    enqueue(order) {
         // precondition: the queue must not be full
         if (this.isFull()) {
             throw new Error('Queue is full');
@@ -55,7 +55,7 @@ class OrderQueue{
         this.tail = nextTail;
         this.count++;
     }
-    remove() {
+    dequeue() {
         // precondition: the queue must not be empty
         if (this.isEmpty()) {
             throw new Error('Queue is empty');
@@ -70,13 +70,6 @@ class OrderQueue{
         return order;
     }
     
-    enqueue(order) {
-        this.add(order);
-    }
-
-    dequeue() {
-        return this.remove();
-    }
 
     front() {
         if (this.isEmpty()) {
@@ -89,8 +82,6 @@ class OrderQueue{
         return this.count;
     }
 
-    
-
      isEmpty() {
         return this.count === 0;
     }
@@ -101,18 +92,6 @@ class OrderQueue{
 
 }
 
-const orderHistory = new OrderHistoryStack();
-console.log('orderHistory', orderHistory);
-console.log('orderHistory size', orderHistory.size());
-console.log('orderHistory is empty', orderHistory.isEmpty());
-console.log('orderHistory peek', orderHistory.peek());
-
-
-const orderQueue = new OrderQueue(5);
-console.log('orderQueue', orderQueue);
-console.log('orderQueue size', orderQueue.size());
-console.log('orderQueue is empty', orderQueue.isEmpty());
-console.log('orderQueue is full', orderQueue.isFull());
 
 // order objects stack and queue
 
@@ -121,6 +100,18 @@ const order2 = { orderNumber: 1002, customer: "Alex", item: "Chair" };
 const order3 = { orderNumber: 1003, customer: "Sam", item: "Desk" };
 const order4 = { orderNumber: 1004, customer: "Taylor", item: "Laptop" };
 const order5 = { orderNumber: 1005, customer: "Morgan", item: "Tablet" };
+
+const orderHistory = new OrderHistoryStack();
+console.log('orderHistory', orderHistory);
+console.log('orderHistory size', orderHistory.size());
+console.log('orderHistory is empty', orderHistory.isEmpty());
+console.log('orderHistory peek', orderHistory.peek());
+
+const orderQueue = new OrderQueue(5);
+console.log('orderQueue', orderQueue);
+console.log('orderQueue size', orderQueue.size());
+console.log('orderQueue is empty', orderQueue.isEmpty());
+console.log('orderQueue is full', orderQueue.isFull());
 
 // Add to stack
 orderHistory.push(order1);
@@ -138,6 +129,8 @@ console.log("Top of stack:", orderHistory.peek());
 orderHistory.push(order5);
 console.log("Top of stack:", orderHistory.peek());
 
+
+
 // Add to queue
 orderQueue.enqueue(order1);
 console.log("Front of queue:", orderQueue.front());
@@ -154,4 +147,10 @@ console.log("Front of queue:", orderQueue.front());
 orderQueue.enqueue(order5);
 console.log("Front of queue:", orderQueue.front());
 
+ // remove and return the most recent order from the queue
+orderHistory.pop();
+console.log("Top of stack after pop:", orderHistory.peek());
 
+// remove and return the oldest order from the queue
+orderQueue.dequeue();
+console.log("Front of queue after dequeue:", orderQueue.front());
