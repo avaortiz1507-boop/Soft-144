@@ -22,20 +22,26 @@ class HashTable {
 
     // Add or update a key-value pair
     set(key, value) {
-        const index = this._hash(key);
-        const bucket = this.buckets[index];
+    const index = this._hash(key);
+    const bucket = this.buckets[index];
 
-        // Check if key already exists in bucket
-        for (let pair of bucket) {
-            if (pair[0] === key) {
-                pair[1] = value; // Update value
-                return;
-            }
-        }
-
-        // If key doesn't exist, push new pair
-        bucket.push([key, value]);
+    // If bucket already has at least one pair, a collision is happening
+    if (bucket.length > 0) {
+        console.log(`Collision detected at bucket ${index} for key "${key}"`);
     }
+
+    // Check if key already exists
+    for (let pair of bucket) {
+        if (pair[0] === key) {
+            pair[1] = value; // update value if key already exists
+            return;
+        }
+    }
+
+    // Add new key-value pair
+    bucket.push([key, value]);
+}
+
 
     // Retrieve a value by key
     get(key) {
@@ -76,5 +82,6 @@ class HashTable {
         }
         return false;
     }
+    
 }
 
