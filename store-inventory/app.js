@@ -1,9 +1,10 @@
 // Hash Table implementation with buckets (arrays) for collision handling
 class HashTable {
-    constructor(size = 10) {
+    constructor(size = 10, logging = true) {
         if (!Number.isInteger(size) || size <= 0) {
             throw new Error("Size must be a positive integer.");
         }
+        this.logging = logging;
         this.buckets = new Array(size).fill(null).map(() => []); // Each bucket is an array
         this.size = size;
         this.count = 0;
@@ -27,7 +28,7 @@ class HashTable {
     const index = this._hash(key);
     const bucket = this.buckets[index];
 
-    if (bucket.length > 0) {
+    if (this.logging && bucket.length > 0) {
         console.log(`Collision detected at bucket ${index} for key "${key}"`);
     }
 
@@ -39,10 +40,11 @@ class HashTable {
         }
     }
 
-    this.count++;
+    
 
     // Add new key-value pair
     bucket.push([key, value]);
+    this.count++;
 
     if (this.loadFactor > 0.75) {
         this._resize();
@@ -109,7 +111,9 @@ class HashTable {
                 this.count++;
             }
         }
-        console.log("Resized hash table to double:", this.size);
+        if (this.logging) {
+            console.log("Resized hash table to double:", this.size);
+        }
     }
 }
 
@@ -119,7 +123,7 @@ const table = {name: "Office Table", price: 129.99, quantity: 5};
 const headset = {name: "Gaming Headset", price: 49.99, quantity: 12};
 const chair = {name: "Office Chair", price: 89.99, quantity: 10};
 
-const inventory = new HashTable();
+const inventory = new HashTable(10, false);
 inventory.set("keyboard", keyboard);
 inventory.set("headset", headset);
 
@@ -133,7 +137,7 @@ console.assert(inventory.delete("headset") && inventory.get("headset") === null,
 console.assert(inventory.get("microwave") === null, "Microwave should not exist in the hash table");
 
 // verify that two products can be in the same bucket
-const hashTable = new HashTable(10);
+const hashTable = new HashTable(10, false);
 
 const key1 = "ab";
 const key2 = "ba";
@@ -149,6 +153,74 @@ console.assert(
     hashTable.buckets[index1].length === 2,
     "Two products should be stored in the same bucket"
 );
+
+// how long a function takes
+function measureTime(fn) {
+    const start = performance.now();
+    fn();
+    const end = performance.now();
+    return end - start; // milliseconds
+}
+
+// how much memory is being used in the whole program
+function getMemoryUsageMB() {
+    const mem = process.memoryUsage();
+    return {
+        rss: (mem.rss / 1024 / 1024).toFixed(2),       // Resident Set Size
+        heapTotal: (mem.heapTotal / 1024 / 1024).toFixed(2),
+        heapUsed: (mem.heapUsed / 1024 / 1024).toFixed(2),
+        external: (mem.external / 1024 / 1024).toFixed(2)
+    };
+}
+
+// Main test
+(function runTest() {
+    const hashTable = new HashTable(10, false);
+    const array = [];
+    const numOps = 10_000; // linear array search is too slow at 1 million
+
+    // Measure SET time
+    const setTime = measureTime(() => {
+        for (let i = 0; i < numOps; i++) {
+            hashTable.set(`key${i}`, i);
+        }
+    });
+    const arraySetTime = measureTime(() => {
+        for (let i = 0; i < numOps; i++) {
+            array.push({key: `key${i}`, value: i});
+        }
+    });
+
+    // Measure GET time
+    const getTime = measureTime(() => {
+        for (let i = 0; i < numOps; i++) {
+            hashTable.get(`key${i}`);
+        }
+    });
+    const arrayGetTime = measureTime(() => {
+        for (let i = 0; i < numOps; i++) {
+            array.find(item => item.key === `key${i}`);
+        }
+    });
+
+    // Calculate operations per second
+    const setOpsPerSec = (numOps / (setTime / 1000)).toFixed(2);
+    const getOpsPerSec = (numOps / (getTime / 1000)).toFixed(2);
+
+    // Memory usage (Node.js only)
+    const memoryUsage = getMemoryUsageMB();
+
+    // Output results
+    console.log("=== Hash Table Performance ===");
+    console.log(`SET time: ${setTime.toFixed(2)} ms`);
+    console.log(`GET time: ${getTime.toFixed(2)} ms`);
+    console.log(`SET ops/sec: ${setOpsPerSec}`);
+    console.log(`GET ops/sec: ${getOpsPerSec}`);
+    console.log(`Array SET time: ${arraySetTime.toFixed(2)} ms`);
+    console.log(`Array GET time: ${arrayGetTime.toFixed(2)} ms`);
+    console.log("Memory Usage (MB):", memoryUsage);
+})();
+
 console.log(`
 Hash Table Summary
 
@@ -178,6 +250,8 @@ Hash Table Summary
 
 6. Which implementation was faster in the benchmark:
     The fastest implementation in the benchmark was the hash table.
+    Edit: After doing the implementation for myself, the hash table was much faster than the
+    plain array.
 
 7. Why hash tables use extra memory to provide faster lookups:
     From my understanding/research, hash tables use extra memory because the more empty buckets,
