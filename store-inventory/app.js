@@ -149,3 +149,40 @@ console.assert(
     hashTable.buckets[index1].length === 2,
     "Two products should be stored in the same bucket"
 );
+console.log(`
+Hash Table Summary
+
+1. How the store used the hash table to find products:
+   The store holds the products in the hash table, using unique keys for each one. To find a product, 
+   you'd use the get() method to find the assigned key to each product.
+
+2. What a hash function does:
+    The hash function coverts the string/key into numbers. Using these numbers, it assigns them
+    to a bucket. This is done by this code: return hash % this.size; which returns the remainder
+    of the number and then used to determine the bucket index.
+
+
+3. What a bucket is:
+   A bucket is an array inside the hash table that can store one or more key-value pairs.
+   
+
+4. What happens when a collision occurs:
+    A collision occurs when two different keys are put inside the same bucket index. To fix this;
+    the hash table uses separate chaining to handle collisions, which is when you add "addresses"
+    or links to the existing products in the bucket.
+
+5. Why the hash table resizes:
+    The hash table has to resize because when theres too many products(>75%), it can make
+    the hash table slow, take up too much memory, or force the products to be in
+    the same buckets.
+
+6. Which implementation was faster in the benchmark:
+    The fastest implementation in the benchmark was the hash table.
+
+7. Why hash tables use extra memory to provide faster lookups:
+    From my understanding/research, hash tables use extra memory because the more empty buckets,
+    the better/faster the lookups are. It also reduces collisions because that means each 
+    bucket will (hopefully) have only one or two products.
+
+ End of Summary 
+`);
