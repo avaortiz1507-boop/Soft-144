@@ -6,6 +6,8 @@ class HashTable {
         }
         this.buckets = new Array(size).fill(null).map(() => []); // Each bucket is an array
         this.size = size;
+        this.count = 0;
+
     }
 
     // Simple hash function: sum of char codes modulo table size
@@ -37,8 +39,14 @@ class HashTable {
         }
     }
 
+    this.count++;
+
     // Add new key-value pair
     bucket.push([key, value]);
+
+    if (this.loadFactor > 0.75) {
+        this._resize();
+    }
     return true; // <-- indicate insertion happened
 }
 
@@ -78,12 +86,31 @@ class HashTable {
         for (let i = 0; i < bucket.length; i++) {
             if (bucket[i][0] === key) {
                 bucket.splice(i, 1);
+                this.count--;
                 return true;
             }
         }
         return false;
     }
-    
+    get loadFactor() {
+        return this.count / this.size;
+    }
+
+    // Double the bucket count and reinsert every pair
+    _resize() {
+        const oldBuckets = this.buckets;
+        this.size *= 2;
+        this.buckets = new Array(this.size).fill(null).map(() => []);
+        this.count = 0;
+
+        for (let bucket of oldBuckets) {
+            for (let [key, value] of bucket) {
+                this.buckets[this._hash(key)].push([key, value]);
+                this.count++;
+            }
+        }
+        console.log("Resized hash table to double:", this.size);
+    }
 }
 
 const mouse = {name: "Wireless Mouse", price: 24.99, quantity: 15};
