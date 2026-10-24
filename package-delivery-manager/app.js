@@ -92,9 +92,23 @@ function binarySearch(sortedPackages, trackingNumber){
     return null;
 }
 
+
+
+// sorting packages by delivery priority
+function sortByPriority(packages){
+    // copy of packages
+    return [...packages]
+    // sort by priority in ascending order
+    .sort((
+        // compare priorities of two packages
+    a, b) => a.priority - b.priority);
+
+}
+const prioritySortedPackages = sortByPriority(packages);
+console.log(prioritySortedPackages);
+
+
 // testing search functions
-
-
 
 //Linear search finds a package near the beginning of the array.
 const beginningPackage = linearSearch(packages, "PKG1002");
