@@ -67,25 +67,39 @@ function linearSearch(packages, trackingNumber){
 const sortedPackages = [...packages].sort((a, b) => a.trackingNumber.localeCompare(b.trackingNumber));
 console.log(sortedPackages);
 
-function binarySearch(packages, trackingNumber){
+function binarySearch(sortedPackages, trackingNumber){
     let left = 0;
-    let right = packages.length - 1;
+    let right = sortedPackages.length - 1;
+    let comparisonCount = 0;
+    // low = left, high = right
+
     
     while(left <= right){
+        // calculates mid index
         let mid = Math.floor((left + right) / 2);
-        if(packages[mid].trackingNumber === trackingNumber){
-            return packages[mid];
-        } else if(packages[mid].trackingNumber < trackingNumber){
+        // compares mid tracking number with target tracking number
+        comparisonCount++;
+        if(sortedPackages[mid].trackingNumber === trackingNumber){
+            console.log(`Binary search comparisons: ${comparisonCount}`);
+            return sortedPackages[mid];
+        } else if(sortedPackages[mid].trackingNumber < trackingNumber){
             left = mid + 1;
         } else {
             right = mid - 1;
         }
     }
+    console.log(`Binary search comparisons: ${comparisonCount}`);
     return null;
 }
+
+
+// console logs for linear and binary search
 console.log(linearSearch(packages, "PKG1007"))
 console.log(linearSearch(packages, "PKG1006"))
-console.log(linearSearch(packages, "PKG1008"))
-console.log(linearSearch(packages, "PKG1009"))
-const result = linearSearch(packages, "PKG1002");
-console.log(result);
+const linearResult = linearSearch(packages, "PKG1002");
+console.log(linearResult);
+
+console.log(binarySearch(sortedPackages, "PKG1001"));
+console.log(binarySearch(sortedPackages, "PKG1008"));
+const binaryResult = binarySearch(sortedPackages, "PKG1002");
+console.log(binaryResult);
