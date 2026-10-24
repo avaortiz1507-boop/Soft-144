@@ -63,6 +63,9 @@ function linearSearch(packages, trackingNumber){
     return null;
 };
 
+// sorting packages by tracking number for binary search
+const sortedPackages = [...packages].sort((a, b) => a.trackingNumber.localeCompare(b.trackingNumber));
+console.log(sortedPackages);
 
 function binarySearch(packages, trackingNumber){
     let left = 0;
