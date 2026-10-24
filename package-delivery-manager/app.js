@@ -65,7 +65,7 @@ function linearSearch(packages, trackingNumber){
 
 // sorting packages by tracking number for binary search
 const sortedPackages = [...packages].sort((a, b) => a.trackingNumber.localeCompare(b.trackingNumber));
-console.log(sortedPackages);
+//console.log(sortedPackages);
 
 function binarySearch(sortedPackages, trackingNumber){
     let left = 0;
@@ -92,14 +92,52 @@ function binarySearch(sortedPackages, trackingNumber){
     return null;
 }
 
+// testing search functions
+
+
+
+//Linear search finds a package near the beginning of the array.
+const beginningPackage = linearSearch(packages, "PKG1002");
+
+// Assert that the index is within the first 4 positions (0–3)
+console.assert(beginningPackage !== null && beginningPackage.trackingNumber === "PKG1002",
+     `Target found: ${beginningPackage ? beginningPackage.trackingNumber : 'null'}.`);
+
+// linear search finds a package near the end of the array.
+const endPackage = linearSearch(packages, "PKG1008");
+// Assert that the index is within the last 4 positions (4–7)
+console.assert(endPackage !== null && endPackage.trackingNumber === "PKG1008",
+     `Target found: ${endPackage ? endPackage.trackingNumber : 'null'}.`);
+
+// check to see if linear returns null for a non-existent package
+// goes through the entire array to conclude the package is missing
+const missingPackage = linearSearch(packages, "PKG1009");
+console.assert(missingPackage === null,"A missing package should return null");
+
+
+
+
+// binary search finds an existing package in the sorted array.
+const existingPackage = binarySearch(sortedPackages, "PKG1003");
+// Use console.assert to verify correctness
+console.assert(existingPackage !== null && existingPackage.trackingNumber === "PKG1003",
+    `Binary search failed: package PKG1003 not found`
+);
+// check to see if binary search returns null for a non-existent package
+// cuts in half 4 times to conclude the package is missing
+const missingBinaryPackage = binarySearch(sortedPackages, "PKG1009");
+console.assert(missingBinaryPackage === null, "Binary search should return null for a missing package");
+
+
+
 
 // console logs for linear and binary search
-console.log(linearSearch(packages, "PKG1007"))
-console.log(linearSearch(packages, "PKG1006"))
-const linearResult = linearSearch(packages, "PKG1002");
-console.log(linearResult);
+//console.log(linearSearch(packages, "PKG1007"))
+//console.log(linearSearch(packages, "PKG1006"))
+//const linearResult = linearSearch(packages, "PKG1002");
+//console.log(linearResult);
 
-console.log(binarySearch(sortedPackages, "PKG1001"));
-console.log(binarySearch(sortedPackages, "PKG1008"));
-const binaryResult = binarySearch(sortedPackages, "PKG1002");
-console.log(binaryResult);
+//console.log(binarySearch(sortedPackages, "PKG1001"));
+//console.log(binarySearch(sortedPackages, "PKG1008"));
+//const binaryResult = binarySearch(sortedPackages, "PKG1002");
+//console.log(binaryResult);
