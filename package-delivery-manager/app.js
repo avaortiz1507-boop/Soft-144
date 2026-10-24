@@ -48,14 +48,22 @@ const packages = [
         priority: 1
     }
 ];
+// comparison goes through each package until the tracking number is found
+//  or the end is reached. Which is why linear search ends at 8; only 8 packages
 function linearSearch(packages, trackingNumber){
+    let comparisonCount = 0;
     for(let i = 0; i < packages.length; i++){
+        comparisonCount++;
         if(packages[i].trackingNumber === trackingNumber){
+            console.log(`Linear search comparisons: ${comparisonCount}`);
             return packages[i];
         }
     }
+    console.log(`Linear search comparisons: ${comparisonCount}`);
     return null;
 };
+
+
 function binarySearch(packages, trackingNumber){
     let left = 0;
     let right = packages.length - 1;
@@ -73,5 +81,8 @@ function binarySearch(packages, trackingNumber){
     return null;
 }
 console.log(linearSearch(packages, "PKG1007"))
-console.log(linearSearch(packages, "PKG99999"))
+console.log(linearSearch(packages, "PKG1006"))
+console.log(linearSearch(packages, "PKG1008"))
 console.log(linearSearch(packages, "PKG1009"))
+const result = linearSearch(packages, "PKG1002");
+console.log(result);
