@@ -106,6 +106,9 @@ function binarySearch(sortedPackages, trackingNumber){
     return null;
 }
 
+
+
+
 // part 7
 // sorting packages by delivery priority
 function sortByPriority(packages){
@@ -123,6 +126,7 @@ console.log(prioritySortedPackages);
 
 console.log("--------------------------------------------------");
 console.log("Comparing search algorithms:");
+
 
 // PART 8
 
@@ -187,6 +191,14 @@ console.assert(existingPackage !== null && existingPackage.trackingNumber === "P
 const missingBinaryPackage = binarySearch(sortedPackages, "PKG1009");
 console.assert(missingBinaryPackage === null, "Binary search should return null for a missing package");
 
+console.log("--------------------------------------------------");
+
+// part 10
+console.log("Expected time complexity:");
+console.log("- Linear search: O(n), because it may check every package.");
+console.log("- Binary search: O(log n), because it halves the search range each comparison; the array must be sorted first.");
+console.log("- Sorting packages: O(n log n) expected; sorting for binary search is done before searching.");
+console.log("- Sorting by priority: O(n log n) expected, including the copied array.");
 
 // console logs for linear and binary search
 //console.log(linearSearch(packages, "PKG1007"))
@@ -198,3 +210,5 @@ console.assert(missingBinaryPackage === null, "Binary search should return null 
 //console.log(binarySearch(sortedPackages, "PKG1008"));
 //const binaryResult = binarySearch(sortedPackages, "PKG1002");
 //console.log(binaryResult);
+
+
