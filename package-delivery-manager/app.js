@@ -213,14 +213,40 @@ console.log("--------------------------------------------------");
 //console.log(binarySearch(sortedPackages, "PKG1008"));
 //const binaryResult = binarySearch(sortedPackages, "PKG1002");
 //console.log(binaryResult);
+
+
+// part 9
+// larger dataset search time comparison
+const largePackages = [];
+for (let i = 1; i <= 10000; i++) {
+    largePackages.push({
+        // zero-padded so tracking numbers sort correctly as text
+        trackingNumber: `PKG${String(i).padStart(5, "0")}`,
+        customer: `Customer ${i}`,
+        address: `${i} Main Street`,
+        priority: (i % 3) + 1
+    });
+}
+
+console.log("Search times for actual package PKG09999")
 console.time("Linear Search Time");
-linearSearch(packages, "PKG1007");
+linearSearch(largePackages, "PKG09999");
 console.timeEnd("Linear Search Time");
 
 console.time("Binary Search Time");
-binarySearch(sortedPackages, "PKG1007");
+binarySearch(largePackages, "PKG09999");
 console.timeEnd("Binary Search Time");
 
+console.log("--------------------------------------------------");
+
+console.log("Search time for missing package PKG10001")
+console.time("Linear Search Time");
+linearSearch(largePackages, "PKG10001");
+console.timeEnd("Linear Search Time");
+
+console.time("Binary Search Time");
+binarySearch(largePackages, "PKG10001");
+console.timeEnd("Binary Search Time");
 console.log("--------------------------------------------------");
 
 console.log(`
@@ -243,10 +269,20 @@ console.log(`
     instead of checking each package one by one.
 
     5. The measured search times from your computer: 
-    Using the package "PKG1007" as an example:
-    Linear Search Time: 0.119ms
-    Binary Search Time: 0.152ms
-    Conclusion: Binary search is faster for finding packages in a sorted array.
+    Using the package "PKG09999" as an example:
+
+    Actual package "PKG09999":
+    Linear search comparisons: 9999
+    Linear Search Time: 0.344ms
+    Binary search comparisons: 13
+    Binary Search Time: 0.151ms
+
+    Missing package "PKG10001":
+    Linear search comparisons: 10000
+    Linear Search Time: 1.053ms
+    Binary search comparisons: 14
+    Binary Search Time: 0.194ms
+    Conclusion: Ran test multiple times.Binary search is faster for finding packages in a sorted array.
 
 
     6. What is one situation where linear search may still be useful?
