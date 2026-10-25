@@ -200,6 +200,9 @@ console.log("- Binary search: O(log n), because it halves the search range each 
 console.log("- Sorting packages: O(n log n) expected; sorting for binary search is done before searching.");
 console.log("- Sorting by priority: O(n log n) expected, including the copied array.");
 
+console.log("--------------------------------------------------"); 
+
+
 // console logs for linear and binary search
 //console.log(linearSearch(packages, "PKG1007"))
 //console.log(linearSearch(packages, "PKG1006"))
@@ -210,5 +213,48 @@ console.log("- Sorting by priority: O(n log n) expected, including the copied ar
 //console.log(binarySearch(sortedPackages, "PKG1008"));
 //const binaryResult = binarySearch(sortedPackages, "PKG1002");
 //console.log(binaryResult);
+console.time("Linear Search Time");
+linearSearch(packages, "PKG1007");
+console.timeEnd("Linear Search Time");
+
+console.time("Binary Search Time");
+binarySearch(sortedPackages, "PKG1007");
+console.timeEnd("Binary Search Time");
+
+console.log("--------------------------------------------------");
+
+console.log(`
+    Summary:
+    1. How did the delivery company use searching and sorting?
+    The delivery company used searching to find the packages and sorting to organize them,
+    like through priority.
+
+    2. What is the difference between linear search and binary search?
+    The difference between linear search and binary search is that linear search goes through
+    eachpackage in a line, one by one, while binary search cuts the sorted array in half,
+    checks left or right, then cuts in half again until it finds the correct package or shows its missing.
+
+    3. Why does binary search requires sorted data?
+    It requires sorted data because if the array isnt sorted, the search will be inaccurate
+    and wont find the correct package.
+
+    4. Which search used fewer comparisons?
+    Binary search used fewer comparisons because it halves the comparison each time, 
+    instead of checking each package one by one.
+
+    5. The measured search times from your computer: 
+    Using the package "PKG1007" as an example:
+    Linear Search Time: 0.119ms
+    Binary Search Time: 0.152ms
+    Conclusion: Binary search is faster for finding packages in a sorted array.
 
 
+    6. What is one situation where linear search may still be useful?
+    Linear search can be useful when the data is small,up to 10 items, 
+    as it does not require sorting and can quickly find the item.
+
+
+    7. What is one situation where binary search may be a better choice?
+    Binary search is better when the data is already sorted and the dataset is larger, 
+    like 100 items, as its more efficient than linear searches.
+    `)
