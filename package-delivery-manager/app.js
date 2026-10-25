@@ -50,27 +50,39 @@ const packages = [
 ];
 // comparison goes through each package until the tracking number is found
 //  or the end is reached. Which is why linear search ends at 8; only 8 packages
+let linearComparisons = 0;
+let binaryComparisons = 0;
+
+// part 3
+
 function linearSearch(packages, trackingNumber){
-    let comparisonCount = 0;
+    let linearComparisonCount = 0;
+
     for(let i = 0; i < packages.length; i++){
-        comparisonCount++;
+        linearComparisonCount++;
         if(packages[i].trackingNumber === trackingNumber){
-            console.log(`Linear search comparisons: ${comparisonCount}`);
+            linearComparisons = linearComparisonCount;
+            console.log(`Linear search comparisons: ${linearComparisonCount}`);
             return packages[i];
         }
     }
-    console.log(`Linear search comparisons: ${comparisonCount}`);
+    linearComparisons = linearComparisonCount;
+    console.log(`Linear search comparisons: ${linearComparisonCount}`);
     return null;
 };
 
+
+// part 4
 // sorting packages by tracking number for binary search
 const sortedPackages = [...packages].sort((a, b) => a.trackingNumber.localeCompare(b.trackingNumber));
 //console.log(sortedPackages);
 
+
+// part 5
 function binarySearch(sortedPackages, trackingNumber){
     let left = 0;
     let right = sortedPackages.length - 1;
-    let comparisonCount = 0;
+    let binaryComparisonCount = 0;
     // low = left, high = right
 
     
@@ -78,9 +90,10 @@ function binarySearch(sortedPackages, trackingNumber){
         // calculates mid index
         let mid = Math.floor((left + right) / 2);
         // compares mid tracking number with target tracking number
-        comparisonCount++;
+        binaryComparisonCount++;
         if(sortedPackages[mid].trackingNumber === trackingNumber){
-            console.log(`Binary search comparisons: ${comparisonCount}`);
+            binaryComparisons = binaryComparisonCount;
+            console.log(`Binary search comparisons: ${binaryComparisonCount}`);
             return sortedPackages[mid];
         } else if(sortedPackages[mid].trackingNumber < trackingNumber){
             left = mid + 1;
@@ -88,12 +101,12 @@ function binarySearch(sortedPackages, trackingNumber){
             right = mid - 1;
         }
     }
-    console.log(`Binary search comparisons: ${comparisonCount}`);
+    binaryComparisons = binaryComparisonCount;
+    console.log(`Binary search comparisons: ${binaryComparisonCount}`);
     return null;
 }
 
-
-
+// part 7
 // sorting packages by delivery priority
 function sortByPriority(packages){
     // copy of packages
@@ -108,6 +121,37 @@ const prioritySortedPackages = sortByPriority(packages);
 console.log(prioritySortedPackages);
 
 
+console.log("--------------------------------------------------");
+console.log("Comparing search algorithms:");
+
+// PART 8
+
+// comparing algorithm performance for linear and binary search
+linearSearch(packages, "PKG1005");
+binarySearch(sortedPackages, "PKG1005");
+console.log("Comparing algorithm performance for linear and binary search");
+console.log(`Tracking number searched: PKG1005`);
+
+console.log(`Linear search comparisons: ${linearComparisons}`);
+console.log(`Binary search comparisons: ${binaryComparisons}`);
+
+    if (linearComparisons < binaryComparisons) {
+        console.log("Linear search used fewer comparisons.");
+    } else if (binaryComparisons < linearComparisons) {
+        console.log("Binary search used fewer comparisons.");
+    } else {
+        console.log("Both algorithms used the same number of comparisons.");
+    }
+
+
+console.log("--------------------------------------------------"
+    
+); 
+console.log("Testing search functions:");  
+
+
+
+// part 6
 // testing search functions
 
 //Linear search finds a package near the beginning of the array.
@@ -130,6 +174,7 @@ console.assert(missingPackage === null,"A missing package should return null");
 
 
 
+console.log("--------------------------------------------------")
 
 // binary search finds an existing package in the sorted array.
 const existingPackage = binarySearch(sortedPackages, "PKG1003");
@@ -141,8 +186,6 @@ console.assert(existingPackage !== null && existingPackage.trackingNumber === "P
 // cuts in half 4 times to conclude the package is missing
 const missingBinaryPackage = binarySearch(sortedPackages, "PKG1009");
 console.assert(missingBinaryPackage === null, "Binary search should return null for a missing package");
-
-
 
 
 // console logs for linear and binary search
