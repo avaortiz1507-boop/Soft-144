@@ -69,4 +69,50 @@ class BinarySearchTree {
             return this._containsNode(node.right, productID);
         }
     }
+
+    remove(productID) {
+        //calls for removeNode at the root of the tree
+        this.root = this._removeNode(this.root, productID);
+    }
+    
+    // removes node with productID
+    _removeNode(node, productID) {
+        // if there is no node, return null
+        if (node === null) {
+            return null;
+        }
+        // if the productID is smaller than the current node's value, go to the left parent
+        if (productID < node.value) {
+            node.left = this._removeNode(node.left, productID);
+            return node;
+        } else if (productID > node.value) {
+            // if the productID is larger than the current node's value, go to the right parent
+            node.right = this._removeNode(node.right, productID);
+            return node;
+        } else {
+            // if they are equal, the node is found and can be removed
+            if (node.left === null) {
+                return node.right;
+            } else if (node.right === null) {
+                return node.left;
+            }
+            // finds the smallest value in the right parent
+            let minNode = this._findMinNode(node.right);
+            // replaces the value of the current node with the smallest value from the right parent
+            node.value = minNode.value;
+            // removes the node with the smallest value from the right parent
+            node.right = this._removeNode(node.right, minNode.value);
+            return node;
+        }
+    }
+
+    // finds the node with the minimum value starting from the given node
+    _findMinNode(node) {
+        // keep going left until reaching the leftmost node
+        while (node.left !== null) {
+            node = node.left;
+        }
+        return node;
+    }
+    
 }
