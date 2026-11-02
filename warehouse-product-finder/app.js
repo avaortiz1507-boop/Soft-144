@@ -133,6 +133,57 @@ class BinarySearchTree {
             this._inOrderTraversal(node.right, result);
         }
     }
+
+    // Visit the current node before visiting its children.
+    preOrderTraversal() {
+        const result = [];
+        this._preOrderTraversal(this.root, result);
+        return result;
+    }
+
+    _preOrderTraversal(node, result) {
+        // checks if node is not null before visiting it
+        if (node !== null) {
+            result.push(node.value);
+            // visits the left subtree first, then the right subtree
+            this._preOrderTraversal(node.left, result);
+            this._preOrderTraversal(node.right, result);
+        }
+    }
+
+    // Visit the children before visiting the current node.
+    postOrderTraversal() {
+        const result = [];
+        this._postOrderTraversal(this.root, result);
+        return result;
+    }
+
+    _postOrderTraversal(node, result) {
+        // checks if node is not null before visiting its children
+        // visits the left subtree first, then the right subtree, and finally the current node
+        if (node !== null) {
+            this._postOrderTraversal(node.left, result);
+            this._postOrderTraversal(node.right, result);
+            result.push(node.value);
+        }
+    }
+
+    // Calculate the height of the tree.
+    height() {
+        return this._height(this.root);
+    }
+
+    _height(node) {
+        // checks if node is null, which means the height is -1 (base case)
+        if (node === null) {
+            return -1;
+        }
+        // recursively calculates the height of the left and right subtrees
+        const leftHeight = this._height(node.left);
+        const rightHeight = this._height(node.right);
+        // returns the maximum height between the left and right subtrees, plus 1 for the current node
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
 }
 
 // create the tree and insert the product IDs
