@@ -114,5 +114,30 @@ class BinarySearchTree {
         }
         return node;
     }
-    
+
+    // returns the product IDs from smallest to largest.
+    inOrderTraversal() {
+        // adds an empty array to store the traversal result
+        const result = [];
+        this._inOrderTraversal(this.root, result);
+        return result;
+    }
+    // node: the current node being visited
+    // result: an array to store the in-order traversal sequence
+    _inOrderTraversal(node, result) {
+        // checks if node is not null
+        if (node !== null) {
+            // keeps checking the left subtree first, then the current node, and finally the right subtree
+            this._inOrderTraversal(node.left, result);
+            result.push(node.value);
+            this._inOrderTraversal(node.right, result);
+        }
+    }
 }
+
+// create the tree and insert the product IDs
+const tree = new BinarySearchTree();
+const productIDs = [50, 30, 70, 20, 40, 60, 80];
+// add an id to each insert to the tree
+productIDs.forEach(id => tree.insert(id));
+console.log(tree.inOrderTraversal());
