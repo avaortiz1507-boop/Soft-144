@@ -192,3 +192,19 @@ const productIDs = [50, 30, 70, 20, 40, 60, 80];
 // add an id to each insert to the tree
 productIDs.forEach(id => tree.insert(id));
 console.log(tree.inOrderTraversal());
+
+// console.asserts to verify
+// A product ID stored near the root
+console.assert(tree.contains(50));
+//console.log(tree.contains(50));
+
+// A product ID stored near the bottom of the tree
+console.assert(tree.contains(20));
+//console.log(tree.contains(20));
+
+// A product ID that does not exist
+console.assert(!tree.contains(100));
+//console.log(tree.contains(100));
+
+
+console.log('All contains() tests passed');
