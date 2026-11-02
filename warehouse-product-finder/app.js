@@ -192,6 +192,7 @@ const productIDs = [50, 30, 70, 20, 40, 60, 80];
 // add an id to each insert to the tree
 productIDs.forEach(id => tree.insert(id));
 console.log(tree.inOrderTraversal());
+console.log(tree.preOrderTraversal());
 
 // console.asserts to verify
 // A product ID stored near the root
@@ -208,3 +209,30 @@ console.assert(!tree.contains(100));
 
 
 console.log('All contains() tests passed');
+
+// removing a leaf node
+tree.remove(20);
+console.assert(!tree.contains(20));
+console.log('Product ID 20 removed successfully');
+// verify that the product ID 20 has been removed
+console.log(tree.contains(20));
+// verify the in-order traversal after removal
+console.log(tree.inOrderTraversal());
+
+// removing a node with one child
+tree.remove(30);
+console.assert(!tree.contains(30));
+console.log('Product ID 30 removed successfully');
+// verify that the product ID 30 has been removed
+console.log(tree.contains(30));
+// verify the in-order traversal after removal
+console.log(tree.inOrderTraversal());
+
+// removing a node with two children
+tree.remove(70);
+console.assert(!tree.contains(70));
+console.log('Product ID 70 removed successfully');
+// verify that the product ID 70 has been removed
+console.log(tree.contains(70));
+// verify the in-order traversal after removal
+console.log(tree.inOrderTraversal());
