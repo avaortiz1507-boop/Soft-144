@@ -122,3 +122,37 @@ function selectionSortByTotal(orders) {
 
     return { sortedOrders: result, comparisons, swaps };
 }
+
+// sets the first element as the least and keeps it as first. second element is compared and inserted in the correct position, and so on.
+// 2,4,5,3,1 →
+// 2,4,5,3,1 → 2 is already in place
+// 2,4,5,3,1 → 4 is compared with 2 and stays
+// 2,4,5,3,1 → 3 is compared with 5, 4, 2 and inserted before 4
+// 2,3,4,5,1 → 1 is compared with 5, 4, 3, 2 and inserted at the beginning
+// 1,2,3,4,5
+// basically, takes one order at a time and places it into the correct position in the sorted section of the array.
+function insertionSortByTotal(orders) {
+    const result = orders.slice();
+    let comparisons = 0;
+    let moves = 0;
+    // assumes the first element is already sorted
+    for (let i = 1; i < result.length; i++) {
+        // stores the current item being inserted into its correct position.
+        let key = result[i];
+        // temporarily remove the key from the array to find its correct position
+        let j = i - 1;
+        // this loop continues as long as it hasn't gone past the beginning of the array and the element is larger than the key.
+        while (j >= 0 && result[j].total > key.total) {
+            comparisons++;
+            // increment comparisons for each comparison made in the while loop
+            result[j + 1] = result[j];
+            moves++;
+            j--;
+            // shift the element one position to the right to make space for the key
+        }
+        // place the key in its correct position
+        result[j + 1] = key;
+    }
+    return { sortedOrders: result, comparisons, moves};
+}
+
