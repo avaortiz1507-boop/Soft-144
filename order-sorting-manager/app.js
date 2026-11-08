@@ -249,3 +249,26 @@ console.log(
 // 8. Why might you use the built-in sorting method in a real project?
 // Based on research, JavaScript's built-in sort() is better than custom sorting algorithms
 // because its much faster and more efficient for large datasets, using less operations. 
+
+console.log("--Final Summary--");
+console.log("1. The online store used sorting algorithms to find the customer with the lowest total to the highest total. It used 3 custom algorithms: Bubble Sort, Selection Sort, and Insertion Sort.");
+
+console.log("2. The fastest algorithm in the performance test was Insertion Sort because it had the fewest amount of comparisons.");
+
+console.log("3.The execution time of each algorithm:");
+console.log("Bubble Sort time:", bubbleResults.time);
+console.log("Selection Sort time:", selectionResults.time);
+console.log("Insertion Sort time:", insertionResults.time);
+
+console.log("4. The comparison and swap counts for each algorithm:")
+console.log("Bubble Sort comparisons:", bubbleResults.comparisons, "swaps:", bubbleResults.swaps);
+console.log("Selection Sort comparisons:", selectionResults.comparisons, "swaps:", selectionResults.swaps);
+console.log("Insertion Sort comparisons:", insertionResults.comparisons, "moves:", insertionResults.moves);
+
+console.log("5. The effect of sorted and reverse-sorted input: I didnt test this scenario.");
+
+console.log("6. One important difference between the three algorithms:");
+console.log("Insertion Sort performs well on nearly sorted data, Selection Sort minimizes swaps, and Bubble Sort is simple but less efficient.");
+
+console.log("7. Which sorting method you would use in a real application:");
+console.log("I would use Insertion Sort for small, nearly sorted lists and the built-in sort() for large datasets.");
