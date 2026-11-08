@@ -142,14 +142,18 @@ function insertionSortByTotal(orders) {
         // temporarily remove the key from the array to find its correct position
         let j = i - 1;
         // this loop continues as long as it hasn't gone past the beginning of the array and the element is larger than the key.
-        while (j >= 0 && result[j].total > key.total) {
-            comparisons++;
-            // increment comparisons for each comparison made in the while loop
-            result[j + 1] = result[j];
-            moves++;
-            j--;
-            // shift the element one position to the right to make space for the key
+       while (j >= 0) {
+    comparisons++;
+
+    if (result[j].total > key.total) {
+        result[j + 1] = result[j];
+        moves++;
+        j--;
+        } else {
+        break;
+            }
         }
+
         // place the key in its correct position
         result[j + 1] = key;
     }
@@ -208,3 +212,40 @@ console.log(
     "Moves:",
     insertionResults.moves
 );
+
+// explaining time complexity
+// Bubble Sort usually has a time complexity of O(n²).
+// Bubble Sort with an early-stop check can have a best case of O(n) when the data is already sorted.
+// Selection Sort has a time complexity of O(n²).
+// Insertion Sort has a worst case of O(n²).
+// Insertion Sort can perform well when the data is small or already close to sorted.
+// Sorting algorithms that create a copy of the array require additional memory.
+
+
+// analyzing the results
+
+// 1. Which custom algorithm was fastest in your performance test?
+// The fastest algorithm in my performance test was insertion because it had the fewest amount of comparisons and swaps.
+
+// 2. Which algorithm made the fewest comparisons?
+// Insertion sort (18)
+
+// 3. Which algorithm made the fewest swaps or moves?
+// Selection sort (6)
+
+// 4. How did Bubble Sort perform with already sorted data?
+// Bubble Sort did have less comparisons than Selection Sort with already sorted data but had more swaps than Selection Sort. So,
+// I'd say that Bubble Sort is not the most efficient for already sorted data compared to Selection Sort.
+
+// 5. How did the algorithms perform with reverse-sorted data?
+// Didn't do this test.
+
+// 6. Was JavaScript's built-in sort() faster?
+// Didn't do this test.
+
+// 7. Which algorithm would you choose for a small, nearly sorted list?
+// I would choose Insertion Sort for a small, nearly sorted list because it shows that it performs the best out of the three.
+    
+// 8. Why might you use the built-in sorting method in a real project?
+// Based on research, JavaScript's built-in sort() is better than custom sorting algorithms
+// because its much faster and more efficient for large datasets, using less operations. 
