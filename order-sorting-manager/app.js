@@ -49,13 +49,16 @@ const orders = [
     },
 ];
 
+//Repeatedly compares adjacent elements and swaps when out of order.
+// Continues passes until no swaps occur.
 function bubbleSortByTotal(orders) {
     // .slice() is used to create a copy of the orders array
     const result = orders.slice();
     let comparisons = 0;
     let swaps = 0;
 
-    // index starts from 0 and goes up to result.length - 1 for the outer loop
+    // outer loop goes through each element except the last one 
+    //because the last element will already be in place after previous passes
     for (let i = 0; i < result.length - 1; i++) {
         // set to false to change to true if a swap occurs
         let swapped = false;
@@ -76,6 +79,44 @@ function bubbleSortByTotal(orders) {
         // if no swaps occurred in the inner loop, the array is already sorted
         if (!swapped) {
             break;
+        }
+    }
+
+    return { sortedOrders: result, comparisons, swaps };
+}
+// starts from the beginning number and sets as minimum, 
+// then finds the smallest in the rest of the array and swaps it into place
+// 2,4,5,3,1 →
+// 1,4,5,3,2 → swaps 2 with 1
+// 1,2,5,3,4 → swaps 4 with 2
+// 1,2,3,5,4 → swaps 5 with 3
+// 1,2,3,4,5 → swaps 5 with 4
+function selectionSortByTotal(orders) {
+    // created a copy of the orders array
+    const result = orders.slice();
+    let comparisons = 0;
+    let swaps = 0;
+    // outer loop goes through each element except the last one 
+    for (let i = 0; i < result.length - 1; i++) {
+        // assume the current total is the minimum 
+        let minIndex = i;
+        // inner loop goes through the remaining elements to find the minimum total
+        for (let j = i + 1; j < result.length; j++) {
+            comparisons++;
+            // if the current total is less than the current minimum, update minIndex
+            // this places the minimum element on the left and the larger on the right
+            // so it starts from the smallest to the largest
+            if (result[j].total < result[minIndex].total) {
+                minIndex = j;
+            }
+        }
+        // if minIndex doesnt equal the current index, 
+        // swap the elements to place the minimum at the current position
+        if (minIndex !== i) {
+            // perform the swap operation.
+            // this produces ascending order (lowest → highest)
+            [result[i], result[minIndex]] = [result[minIndex], result[i]];
+            swaps++;
         }
     }
 
