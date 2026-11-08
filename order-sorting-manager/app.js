@@ -155,4 +155,56 @@ function insertionSortByTotal(orders) {
     }
     return { sortedOrders: result, comparisons, moves};
 }
+// printing results
 
+const bubbleResults = bubbleSortByTotal(orders);
+const selectionResults = selectionSortByTotal(orders);
+const insertionResults = insertionSortByTotal(orders);
+
+// Display Bubble Sort results
+console.log("Bubble Sort Results:");
+for (const order of bubbleResults.sortedOrders) {
+    console.log(
+        order.orderNumber,
+        order.customer,
+        order.total
+    );
+}
+console.log(
+    "Comparisons:",
+    bubbleResults.comparisons,
+    "Swaps:",
+    bubbleResults.swaps
+);
+
+// Display Selection Sort results
+console.log("Selection Sort Results:");
+for (const order of selectionResults.sortedOrders) {
+    console.log(
+        order.orderNumber,
+        order.customer,
+        order.total
+    );
+}
+console.log(
+    "Comparisons:",
+    selectionResults.comparisons,
+    "Swaps:",
+    selectionResults.swaps
+);
+
+// Display Insertion Sort results
+console.log("Insertion Sort Results:");
+for (const order of insertionResults.sortedOrders) {
+    console.log(
+        order.orderNumber,
+        order.customer,
+        order.total
+    );
+}
+console.log(
+    "Comparisons:",
+    insertionResults.comparisons,
+    "Moves:",
+    insertionResults.moves
+);
