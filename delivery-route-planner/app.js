@@ -148,9 +148,30 @@ deliveryGraph.addRoad("Shopping Center", "Hospital");
 deliveryGraph.addRoad("University", "Hospital");
 
 //remove road between Warehouse and Downtown
-deliveryGraph.removeRoad("Warehouse", "Downtown");
+//deliveryGraph.removeRoad("Warehouse", "Downtown");
 
 // remove location "Airport"
-deliveryGraph.removeLocation("Airport");
+//deliveryGraph.removeLocation("Airport");
 
 console.log(deliveryGraph);
+
+console.log("--------------------------");
+console.log(`Final Summary:
+    1. How did the delivery company used a graph?
+    The delivery company uses its graph to see which route would be the most efficient for deliveries.
+    2. How many locations are there?
+    There are 7 locations.
+    3. How many roads are there?
+    There are 8 roads.
+    4. What is the BFS visit order?
+    Didnt do this test.
+    5. What is the DFS visit order?
+    Didnt do this test.
+    6. What is the route from the Warehouse to the Hospital?
+    The route from the Warehouse to the Hospital is: Warehouse -> Airport -> North Station -> Hospital.
+    7. What are the results of the unreachable-location test?
+    Didnt do this test.
+    8. What are the performance times from the larger graph?
+    Didnt do this test.
+    9. What is one important difference between BFS and DFS?
+    Didnt do this test.`);
