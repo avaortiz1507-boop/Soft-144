@@ -59,10 +59,49 @@ class Graph {
         if (!this.adjacencyList.has(location)) {
             return [];
         }
-            
+
         return this.adjacencyList.get(location);
     }
 
+
+    removeRoad(locationA, locationB) {
+    // Check that both locations exist
+    if (
+        !this.adjacencyList.has(locationA) ||
+        !this.adjacencyList.has(locationB)
+    ) {
+        return false;
+    }
+
+    // Check that the road exists
+    if (
+        // if the road does not exist between the locations, return false
+        !this.adjacencyList.get(locationA).includes(locationB) ||
+        !this.adjacencyList.get(locationB).includes(locationA)
+    ) {
+        return false;
+    }
+
+    // Remove locationB from locationA's connections
+    this.adjacencyList.set(
+        locationA,
+        this.adjacencyList
+        // gets locationA's connections and filters out locationB
+            .get(locationA)
+            .filter(location => location !== locationB)
+    );
+
+    // Remove locationA from locationB's connections
+    this.adjacencyList.set(
+        locationB,
+        this.adjacencyList
+        // gets locationB's connections and filters out locationA
+            .get(locationB)
+            .filter(location => location !== locationA)
+    );
+
+    return true;
+}
 
  
 }
