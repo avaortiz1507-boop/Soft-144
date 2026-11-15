@@ -103,6 +103,28 @@ class Graph {
     return true;
 }
 
+  removeLocation(location) {
+    // Return false if the location does not exist
+    if (!this.adjacencyList.has(location)) {
+        return false;
+    }
+
+    // Remove this location from all connected locations
+    for (const connectedLocation of this.adjacencyList.get(location)) {
+        // gets the connections of the connected location and filters out the location being removed
+        this.adjacencyList.set(connectedLocation,this.adjacencyList.get(connectedLocation)
+        // only keep connections that are NOT the location being removed
+                .filter(loc => loc !== location)
+        );
+    }
+
+    // Remove the location from the adjacency list
+    this.adjacencyList.delete(location);
+
+    // Location was successfully removed
+    return true;
+}
+
  
 }
 
@@ -124,5 +146,11 @@ deliveryGraph.addRoad("Airport", "North Station");
 deliveryGraph.addRoad("North Station", "Hospital");
 deliveryGraph.addRoad("Shopping Center", "Hospital");
 deliveryGraph.addRoad("University", "Hospital");
+
+//remove road between Warehouse and Downtown
+deliveryGraph.removeRoad("Warehouse", "Downtown");
+
+// remove location "Airport"
+deliveryGraph.removeLocation("Airport");
 
 console.log(deliveryGraph);
