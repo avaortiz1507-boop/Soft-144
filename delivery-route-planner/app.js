@@ -38,8 +38,18 @@ const deliveryGraph = new Graph();
 deliveryGraph.addLocation("Warehouse");
 deliveryGraph.addLocation("Downtown");
 deliveryGraph.addLocation("Airport");
+deliveryGraph.addLocation("North Station");
+deliveryGraph.addLocation("Shopping Center");
+deliveryGraph.addLocation("University");
+deliveryGraph.addLocation("Hospital");
+
 deliveryGraph.addRoad("Warehouse", "Downtown");
 deliveryGraph.addRoad("Warehouse", "Airport");
-deliveryGraph.addRoad("Downtown", "Airport");
+deliveryGraph.addRoad("Downtown", "Shopping Center");
+deliveryGraph.addRoad("Downtown", "University");
+deliveryGraph.addRoad("Airport", "North Station");
+deliveryGraph.addRoad("North Station", "Hospital");
+deliveryGraph.addRoad("Shopping Center", "Hospital");
+deliveryGraph.addRoad("University", "Hospital");
 
 console.log(deliveryGraph);
